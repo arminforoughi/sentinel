@@ -230,3 +230,27 @@ table.t tr.clickable { cursor: pointer; }
 .ticker .src { color: var(--violet); }
 .budget { display: flex; align-items: center; gap: 6px; }
 .chain { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+/* ---------- landing ---------- */
+.landing { height: 100vh; overflow: auto; position: relative; }
+.landing-bg { position: fixed; inset: 0; z-index: -1; opacity: .55; } .landing-bg svg { width: 100%; height: 100%; }
+.landing-nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; max-width: 1200px; margin: 0 auto; }
+.landing-nav .brand { padding: 0; }
+.hero { max-width: 1200px; margin: 0 auto; padding: 70px 40px 40px; display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+.hero h1 { font-size: clamp(34px, 5vw, 58px); line-height: 1.05; letter-spacing: -.03em; margin: 0; max-width: 900px; font-weight: 700; }
+.hero h1 em { font-style: normal; background: linear-gradient(90deg, var(--accent), var(--violet)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero p { max-width: 760px; font-size: 16px; color: var(--text-2); margin: 0; line-height: 1.55; }
+.hero-cta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 8px; }
+.btn.lg { padding: 12px 20px; font-size: 14px; border-radius: 12px; }
+.hero-stats { display: flex; gap: 40px; margin-top: 28px; flex-wrap: wrap; }
+.hero-stats b { display: block; font-size: 30px; letter-spacing: -.02em; } .hero-stats span { color: var(--muted); font-size: 12.5px; }
+.landing-sec { max-width: 1200px; margin: 0 auto; padding: 30px 40px; }
+.pipeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+@media (max-width: 1000px) { .pipeline { grid-template-columns: repeat(2, 1fr); } }
+.step { border: 1px solid var(--border); border-radius: 14px; padding: 16px; background: var(--panel); display: flex; flex-direction: column; gap: 6px; position: relative; font-size: 12.5px; }
+.step .n { position: absolute; top: 12px; right: 14px; font-family: var(--mono); color: var(--muted); font-size: 11px; }
+.step b { font-size: 14px; } .step .pill { align-self: flex-start; margin-top: 4px; }
+.novel { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+.novel .ic { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; font-weight: 800; background: linear-gradient(135deg, var(--accent-dim), var(--violet-dim)); color: var(--accent); }
+.novel b { font-size: 15px; } .novel p { margin: 0; font-size: 13px; line-height: 1.5; }
+.landing-foot { display: flex; justify-content: center; padding: 40px 0 70px; }

@@ -24,7 +24,8 @@ detect → blast radius (Neo4j) → triage (Nebius via OpenRouter) → advisorie
 ```bash
 ./run.sh
 ```
-Open http://localhost:5173 → **Chaos Lab** → inject a fault → watch Overview heal it.
+Open http://localhost:5173 → **Start guided demo** on the landing page → watch the console heal a crashed payment-service.
+Console lives at `/overview`; Chaos Lab lets you inject any of 11 fault types.
 Every integration falls back to a simulated executor when its key is missing, so the full loop always runs.
 
 ## Wire the sponsors
