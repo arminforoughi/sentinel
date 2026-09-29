@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useStore } from '../lib/store'
 import { api } from '../lib/api'
 import { Pill } from '../components/ui'
+import Topology from '../components/Topology'
 
 const STEPS = [
   ['Detect', 'Telemetry, security signals and cost drift across every cloud', 'monitor'],
@@ -36,6 +37,20 @@ export default function Landing() {
     </section>
     <section className="landing-sec"><div className="section-title">The problem</div><div className="grid g3">{[['Alerts without answers', 'Hours of MTTR are diagnosis, not the fix. Someone has to work out what broke, what it took down and what to do.'], ['Waste nobody owns', '25–30% of cloud spend is idle. Cost and security findings pile up because remediation is manual and unaudited.'], ['Evidence by screenshot', 'SOC 2 and ISO audits become a quarterly scramble. Nothing in the incident loop produces proof.']].map(([t, d]) => <div key={t} className="panel" style={{ padding: 18 }}><b style={{ fontSize: 14 }}>{t}</b><p className="dim" style={{ margin: '6px 0 0', fontSize: 13 }}>{d}</p></div>)}</div></section>
     <section className="landing-sec"><div className="section-title">How it works · one incident, eight steps</div><div className="pipeline">{STEPS.map(([t, d, k], i) => <div key={t} className="step"><span className="n">{i + 1}</span><b>{t}</b><span className="dim">{d}</span><Pill tone="outline">{k}</Pill></div>)}</div></section>
+    <section className="landing-sec"><div className="section-title">Neo4j graph + digital twin · the core idea</div>
+      <div className="grid g2 twin">
+        <div className="panel" style={{ overflow: 'hidden' }}><div className="panel-h"><h3>Who gets hurt if we do nothing</h3><span className="sub">live Neo4j blast radius · click a node</span></div><Topology compact /></div>
+        <div className="panel" style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div><b style={{ fontSize: 15 }}>Who gets hurt by the fix</b><p className="dim" style={{ margin: '6px 0 0', fontSize: 13, lineHeight: 1.55 }}>Every service is a node and every call is a <span className="kbd">DEPENDS_ON</span> edge in Neo4j. A variable-length Cypher query returns everything that transitively depends on the broken service: the blast radius. That same graph is the digital twin. Before executing, Sentinel simulates each candidate action on it and scores the disruption the <i>fix itself</i> would cause: hops it ripples upstream × seconds × tier weight. Least disruptive runs first; anything over the policy threshold is vetoed.</p></div>
+          <div className="section-title">Rehearsal · redis-cache crash</div>
+          <div className="rehearsal">
+            <div className="rh veto"><span className="sc" style={{ color: 'var(--crit)' }}>27.2</span><div><div className="mono" style={{ fontWeight: 600 }}>restart → redis-cache</div><div className="muted" style={{ fontSize: 11 }}>disrupts auth, cart, catalog, fraud-ml +5 for ~12s</div></div><Pill tone="ok">trust 88%</Pill><Pill tone="crit">vetoed</Pill></div>
+            <div className="rh chosen"><span className="sc" style={{ color: 'var(--warn)' }}>11.9</span><div><div className="mono" style={{ fontWeight: 600 }}>rollback → redis-cache</div><div className="muted" style={{ fontSize: 11 }}>disrupts auth, cart, catalog, fraud-ml for ~8s</div></div><Pill tone="ok">trust 83%</Pill><Pill tone="ok">chosen</Pill></div>
+            <div className="rh"><span className="sc" style={{ color: 'var(--ok)' }}>0.9</span><div><div className="mono" style={{ fontWeight: 600 }}>scale → redis-cache</div><div className="muted" style={{ fontSize: 11 }}>no collateral disruption · does not clear this fault</div></div><Pill tone="ok">trust 92%</Pill><span /></div>
+          </div>
+          <p className="muted" style={{ margin: 0, fontSize: 12 }}>Neo4j tells Sentinel who gets hurt if it does nothing. The twin tells it who gets hurt by the fix. It always picks the repair with the smallest footprint, and it ran this one without asking because rollback has earned trust.</p>
+        </div>
+      </div></section>
     <section className="landing-sec"><div className="section-title">What's new here</div><div className="grid g3">{NOVEL.map(([t, d, ic]) => <div key={t} className="panel novel"><div className="ic">{ic}</div><b>{t}</b><p className="dim">{d}</p></div>)}</div></section>
     <section className="landing-sec"><div className="section-title">Sponsor tools wired together</div><div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>{SPONSORS.map(x => <span key={x} className="pill outline" style={{ fontSize: 13, padding: '6px 12px' }}>{x}</span>)}</div><p className="muted" style={{ fontSize: 12.5, marginTop: 10 }}>Each one performs a step in the pipeline. Nothing is plugged in and idle. Without credentials every executor runs in simulation so the full loop always demos.</p></section>
     <footer className="landing-foot"><button className="btn primary lg" onClick={start}>▶ Start guided demo</button></footer>

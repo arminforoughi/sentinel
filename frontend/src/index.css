@@ -254,3 +254,6 @@ table.t tr.clickable { cursor: pointer; }
 .novel .ic { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; font-weight: 800; background: linear-gradient(135deg, var(--accent-dim), var(--violet-dim)); color: var(--accent); }
 .novel b { font-size: 15px; } .novel p { margin: 0; font-size: 13px; line-height: 1.5; }
 .landing-foot { display: flex; justify-content: center; padding: 40px 0 70px; }
+
+.twin .topo { height: 460px; min-height: 460px; border-radius: 0 0 var(--r-lg) var(--r-lg); }
+@media (max-width: 1100px) { .twin .topo { height: 360px; min-height: 360px; } }
